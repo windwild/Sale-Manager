@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=gb2312" />
+	<meta name="author" content="william" />
+    <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+	<title>登录</title>
+</head>
+
+<body>
+  <div id="header">
+	<h1 align="center">销售信息管理系统</h1>
+  <p align="right"> Design By Group 25</p>
+  </div>
+  <div align="center">
+  <form name="form1" method="POST" action="./Login.php">
+    <table width="286" border="1" height="124">
+      <tr>
+        <td height="27">用户名</td>
+        <td width="211"><input name="username" type="text"></td>
+      </tr>
+      <tr>
+        <td width="59" height="27">密码</td>
+        <td><label>
+        <input type="password" name="password">
+        </label></td>
+      </tr>
+      <tr>
+        <td height="24">身份</td>
+        <td><label></label>
+          <label>员工
+          <input type="radio" name="statu" value="0" checked="checked">
+          经理
+          <input type="radio" name="statu" value="1">
+          </label></td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center">
+        <label>
+           <input type="submit" name="button" id="button" value="登陆">
+        </label></td>
+      </tr>
+    </table>
+  </form>
+</div>
+</body>
+</html>
