@@ -22,6 +22,40 @@
          return false;
   }
   /*
+     func:Add a user to System
+  */
+  function addUser($user)
+  {
+       $t = getTime();
+       $year = $t->getyear();
+       $name = $user->username;
+       $email = $user->email;
+       $sex = $user->sex;
+       $connect = db_Connect();
+       $query = "Insert into user(email,password,statu) values('".$email."','123','0')";
+       db_Update($connect,$query);
+       addEmployee($email,$name,$year,$sex);
+       db_Close($connect);
+  }
+  function addemployee($email,$name,$year,$sex)
+  {
+    $id = "11";//getUserID($email);
+    $connect = db_Connect();
+    $query = "Insert into employee(userId,name,cur_state,enter_year,sex) values('".$id."','".$name
+                ."','1','".$year."','".$sex."')";
+    db_Update($connect,$query);
+    db_Close($connect);
+  }
+  function getUserNum()
+  {
+      $conncect = db_Connect();
+      $query = "select count(*) from employee";
+      $result = db_Query($conncect,$query);
+      $row = mysql_fetch_array($result);
+      db_Close($connect);
+      return $row[0];
+  }
+  /*
      fuc:Get a user's userId
      para:username
   */
@@ -76,7 +110,7 @@
       $connect = db_Connect();
       $query = "update employee set cur_state=1";
       db_Update($connect,$query);
-      db_Close();
+      db_Close($connect);
   }
   /*
      func:Set a user's state to be not working
@@ -86,7 +120,7 @@
       $connect = db_Connect();
       $query = "update employee set cur_state=0 where userId='".$userId."'";
       db_Update($connect,$query);
-      db_Close();
+      db_Close($connect);
   }
   /*
       func:Get current SystemTime
@@ -108,7 +142,6 @@
   */
   function addTime()
   {
-      $t = new Date();
       $t = getTime();
       $t->setmonth($t->getmonth()+1);
       if($t->getmonth()>12)
@@ -129,7 +162,7 @@
   {
       $connect = db_Connect();
       $query = "select sum(lock_num),sum(stock_num),sum(barrel_num) from sale where employeeId='".$employeeId.
-               "' and year like '".$year."' and month like '".$month."'";
+               "' and year='".$year."' and month='".$month."'";
       $result = db_Query($connect,$query);
       if(($row = mysql_fetch_array($result)))
       {
@@ -145,6 +178,62 @@
          db_Close($connect);
          return NULL;
       }
+  }
+  function getSale($year,$month)
+  {
+      $connect = db_Connect();
+      if($month==NULL)
+         $query = "select sum(lock_num),sum(stock_num),sum(barrel_num) from sale where year like '%".$year."%'";
+      else
+         $query = "select sum(lock_num),sum(stock_num),sum(barrel_num) from sale where year like '%".$year."%' and month='".$month."'";
+      $result = db_Query($connect,$query);
+      if(($row = mysql_fetch_array($result)))
+      {
+         $alist = new sale_list();
+         $alist->setlock_num($row["sum(lock_num)"]);
+         $alist->setstock_num($row["sum(stock_num)"]);
+         $alist->setbarrel_num($row["sum(barrel_num)"]);
+         db_Close($connect);
+         return $alist;
+      }
+      else
+      {
+         db_Close($connect);
+         return NULL;
+      }
+  }
+  function getYearSale($year)
+  {
+     $connect = db_Connect();
+     $query = "select (45*sum(lock_num)+30*sum(stock_num)+25*sum(barrel_num)) as sale_num from sale where year='".$year."'";
+     $result = db_Query($connect,$query);
+     $row = mysql_fetch_array($result);
+     return $row[0];
+  }
+  function getTop($year,$month)
+  {
+     $connect = db_Connect();
+     if($month!=NULL)
+        $query = "select name,sex,enter_year,(45*sum(lock_num)+30*sum(stock_num)+25*sum(barrel_num)) as sale_num from employee,sale where userId=employeeId and 
+              year like '%".$year."%' and month='".$month."' order by sale_num limit 10";
+     else
+        $query = "select name,sex,enter_year,(45*sum(lock_num)+30*sum(stock_num)+25*sum(barrel_num)) as sale_num from employee,sale where userId=employeeId and 
+              year like '%".$year."%' order by sale_num limit 10";
+     $result = db_Query($connect,$query);
+     $res = array();
+     while(($row = mysql_fetch_array($result)))
+     {
+         $user = new User();
+         $user->username = $row["name"];
+         if($row["sex"] == 0)
+            $user->sex = "ÄÐ";
+         else
+            $user->sex = "Å®";
+         $user->enter_year = $row["enter_year"];
+         $user->sale = $row["sale_num"];
+         array_push($res,$user);
+     }
+     return $res;
   }
   /*
       func:Get a employee's state
@@ -185,6 +274,6 @@
       $query = "Insert into sale(year,month,employeeId,lock_num,stock_num,barrel_num) values('".$year."','"
                .$month."','".$employeeId."','".$lock."','".$stock."','".$barrel."')";
       db_Update($connect,$query);
-      db_Close();
+      db_Close($connect);
   }
 ?>

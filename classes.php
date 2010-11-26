@@ -116,5 +116,6 @@
       var $sex;
       var $cur_state;
       var $enter_year;
+      var $sale;
   }
 ?>

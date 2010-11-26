@@ -1,3 +1,9 @@
+<%@ page language="java" import="java.util.*,cn.edu.hit.*,java.sql.*" pageEncoding="gb2312"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
 Design by Free CSS Templates
@@ -21,18 +27,10 @@ Released   : 20090731
 <body>
 <?php
    require "dbservice.php";
-   session_start();
-   $userId = $_SESSION["userId"];
+   
    $year = $_POST["year"];
    $month = $_POST["month"];
-   $t = getTime();
-   $state = getState($userId);
-   $alist = getSaleNum($userId,$year,$month);
-   $lock_num = $alist->getlock_num();
-   $stock_num = $alist->getstock_num();
-   $barrel_num = $alist->getbarrel_num();
-   $sale = $alist->gettot_sale();
-   $salary = $alist->getsalary();
+   $res = getTop($year,$month);
 ?>
 <!-- start header -->
 <div id="header">
@@ -47,31 +45,28 @@ Released   : 20090731
 				<!-- start content -->
 				<div id="content">
 				  <div class="post">
-					  <h2 class="title">以下是您<?php echo "{$year}年{$month}月"?>的工资单</h2>
+					  <h2 class="title">以下销售员工Top10</h2>
 						<div class="entry">
 		<div align="center"></div>
         <?php
-           if(($lock_num==0&&$stock_num==0&&$barrel_num==0)||($t->getyear()==$year&&$month >= $t->getmonth()&&$state == 1))
-              print "您该时间点尚无销售记录";
-           elseif ($lock_num == 0 || $stock_num == 0 || $barrel_num == 0)
-              print "您该时间点未卖足一杆枪，故无工资记录";
-           else
+           $cnt = 0;
+           foreach($res as $employee)
            {
+                if($employee->username==NULL)
+                   break;
         ?>
 		<table width="550" height="125" border="1" align="center">
 			<tr>
-				<td width="111" align="center">售出lock数</td>
-				<td width="88" align="center">售出stock数</td>
-				<td width="110"> <div align="center">售出barrel数</div></td>
-				<td width="95"><div align="center">总销售额</div></td>
-				<td width="112"><div align="center">收入</div></td>
+				<td width="112" align="center">姓名</td>
+				<td width="144" align="center">性别</td>
+				<td width="141"> <div align="center">进入公司年份</div></td>
+				<td width="125"><div align="center">总销售额</div></td>
 			</tr>
 			<tr>
-				<td align="center"><?php echo "{$lock_num}"?></td>
-				<td align="center"><?php echo "{$stock_num}"?></td>
-			    <td align="center"><?php echo "{$barrel_num}"?></td>
-			    <td align="center"><?php echo "{$sale}"?></td>
-			    <td align="center"><?php echo "{$salary}"?></td>
+				<td align="center"><?php echo "{$employee->username}"?></td>
+				<td align="center"><?php echo "{$employee->sex}"?></td>
+			    <td align="center"><?php echo "{$employee->enter_year}"?></td>
+			    <td align="center"><?php echo "{$employee->sale}"?></td>
 			</tr>
 		</table>
         <?php
@@ -87,10 +82,11 @@ Released   : 20090731
 						<li>
 							<h2>Menus</h2>
 							<ul>
-								<li><a href="ModifyPassword.php">修改密码</a></li>
-								<li><a href="Submit.php">提交数据</a></li>
-								<li><a href="LateInfo.php">查看过去工资单</a></li>
-                                <li><a href="index.php">返回主页</a></li>
+								<li><a href="addUser.html">增加员工</a></li>
+								<li><a href="top10.php">员工销售Top10</a></li>
+                                <li><a href="LateSale.php">历史销售情况查询</a></li>
+                                <li><a href="FiveSale.php" target="_blank">五年销售状况表</a></li>
+                                <li><a href="index2.php">返回主页</a></li>
 							</ul>
 						</li>
 					</ul>

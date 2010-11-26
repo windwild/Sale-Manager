@@ -13,8 +13,16 @@
       $_SESSION["statu"] = $statu;
       $userId = getUserID($username);
       $_SESSION["userId"] = $userId;
-      header("Location: ./index.php");
-      exit;
+      if($statu == 0)
+      {
+          header("Location: ./index.php");
+          exit;
+      }
+      else
+      {
+          header("Location: ./index2.php");
+          exit;
+      }
   }
   else
   {

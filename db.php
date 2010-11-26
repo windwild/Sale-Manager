@@ -13,6 +13,7 @@
    }
    function db_Update($connect,$query)
    {
+       mysql_query("set names 'gb2312'");
        mysql_query($query,$connect);
        return;
    }
