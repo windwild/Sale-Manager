@@ -10,6 +10,9 @@
   $user->sex = $sex;
   $user->email = $email;
   addUser($user);
+  $t=getTime();
+  $year = $t->getyear();
+  addemployee($email,$name,$year,$sex);
   header("Location: ./Success2.html");
   exit;
 ?>

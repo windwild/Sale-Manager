@@ -18,6 +18,11 @@
    session_start();
    $username = $_SESSION["username"];
    $id = $_SESSION["userId"];
+   if($username == NULL)
+   {
+       header("Location: ./login.html");
+       exit;
+   }
    $user = getUserInfo($username);
    $t = getTime();
    $alist = getSaleNum($id,$t->getyear(),$t->getmonth());
@@ -80,6 +85,7 @@
 								<li><a href="ModifyPassword.php">修改密码</a></li>
 								<li><a href="Submit.php">提交数据</a></li>
 								<li><a href="LateInfo.php">查看过去工资单</a></li>
+                                <li><a href="login.html">退出</a></li>
 							</ul>
 						</li>
 					</ul>

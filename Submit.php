@@ -5,7 +5,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=gb2312" />
 	<meta name="author" content="william" />
     <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
-	<title>信息选择</title>
+<title>信息选择</title>
     <style type="text/css">
 <!--
 .STYLE1 {
@@ -92,6 +92,22 @@
               ?>
               </select>
             </label></td>
+          </tr>
+          <tr>
+            <td colspan="3"><span class="STYLE1">城市
+              <label>
+              <select name="city" id="select">
+              <option selected value="哈尔滨">哈尔滨</option>
+              <option value="长春">长春</option>
+              <option  value="大连">大连</option>
+              <option  value="深圳">深圳</option>
+              <option  value="上海">上海</option>
+              <option  value="广州">广州</option>
+              <option  value="沈阳">沈阳</option>
+              <option  value="北京">北京</option>
+              </select>
+              </label>
+            </span></td>
           </tr>
           <tr>
             <td colspan="3"><label>

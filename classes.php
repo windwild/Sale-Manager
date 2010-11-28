@@ -118,4 +118,9 @@
       var $enter_year;
       var $sale;
   }
+  class City
+  {
+      var $name;
+      var $sale;
+  }
 ?>

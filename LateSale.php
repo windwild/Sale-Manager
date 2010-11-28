@@ -24,8 +24,7 @@
 				<table width="317" height="98" border="1">
 					<tr>
 						<td width="64">
-							<span class="STYLE5">年</span>
-						</td>
+							<span class="STYLE5">年</span>						</td>
 						<td width="237">
 							<label>
 								<select name="year">
@@ -38,13 +37,11 @@
                                   print "<option selected value=\"{$cur_year}\">{$cur_year}</option>\n";
                                 ?>
 								</select>
-							</label>
-						</td>
+							</label>						</td>
 					</tr>
 					<tr>
 						<td>
-							<span class="STYLE5">月</span>
-						</td>
+							<span class="STYLE5">月</span>						</td>
 						<td>
 							<label>
 								<select name="month">
@@ -62,15 +59,30 @@
                                 <option value="11">11</option>
                                 <option value="12">12</option>
 								</select>
-							</label>
-						</td>
+							</label>						</td>
 					</tr>
+					<tr>
+                      <td>城镇</td>
+					  <td><label>
+                        <select name="city" id="select">
+                          <option selected value="">不限</option>
+                          <option alue="哈尔滨">哈尔滨</option>
+                          <option value="长春">长春</option>
+                          <option value="大连">大连</option>
+                          <option value="深圳">深圳</option>
+                          <option value="上海">上海</option>
+                          <option value="广州">广州</option>
+                          <option value="沈阳">沈阳</option>
+                          <option value="北京">北京</option>
+              </select>
+                        </label>                      </td>
+				  </tr>
+					
 					<tr>
 						<td colspan="2" align="center">
 							<label>
 								<input type="submit" name="button" id="button" value="查询">
-							</label>
-						</td>
+							</label>						</td>
 					</tr>
 				</table>
 			</div>

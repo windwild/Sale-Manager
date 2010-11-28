@@ -14,7 +14,13 @@
 <!-- start page -->
 <?php
    require "dbservice.php";
-   
+   session_start();
+   $username = $_SESSION["username"];
+   if($username == NULL)
+   {
+       header("Location: ./login.html");
+       exit;
+   }
    $t = getTime();
    $year = $t->getyear();
    $month = $t->getmonth();
@@ -70,7 +76,9 @@
 								<li><a href="addUser.html">增加员工</a></li>
 								<li><a href="top10.php">员工销售Top10</a></li>
                                 <li><a href="LateSale.php">历史销售情况查询</a></li>
+                                <li><a href="city5.php">城市销售Top5</a></li>
                                 <li><a href="FiveSale.php" target="_blank">五年销售状况表</a></li>
+                                <li><a href="login.html">退出</a></li>
 							</ul>
 						</li>
 					</ul>

@@ -1,3 +1,22 @@
+<%@ page language="java" import="java.util.*,cn.edu.hit.*,java.sql.*" pageEncoding="gb2312"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+
+Name       : Accomplishable
+Description: A two-column, fixed-width design.
+Version    : 1.0
+Released   : 20090731
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=gb2312" />
 <title></title>
@@ -29,13 +48,6 @@
 					  <h2 class="title">以下销售员工Top10</h2>
 						<div class="entry">
 		<div align="center"></div>
-        <?php
-           $cnt = 0;
-           foreach($res as $employee)
-           {
-                if($employee->username==NULL)
-                   break;
-        ?>
 		<table width="550" height="125" border="1" align="center">
 			<tr>
 				<td width="112" align="center">姓名</td>
@@ -43,16 +55,23 @@
 				<td width="141"> <div align="center">进入公司年份</div></td>
 				<td width="125"><div align="center">总销售额</div></td>
 			</tr>
+            <?php
+           $cnt = 0;
+           foreach($res as $employee)
+           {
+                if($employee->username==NULL)
+                   break;
+            ?>
 			<tr>
 				<td align="center"><?php echo "{$employee->username}"?></td>
 				<td align="center"><?php echo "{$employee->sex}"?></td>
 			    <td align="center"><?php echo "{$employee->enter_year}"?></td>
 			    <td align="center"><?php echo "{$employee->sale}"?></td>
 			</tr>
-		</table>
         <?php
            }
         ?>
+        </table>
 						</div>
 				  </div>
 				</div>
@@ -66,8 +85,10 @@
 								<li><a href="addUser.html">增加员工</a></li>
 								<li><a href="top10.php">员工销售Top10</a></li>
                                 <li><a href="LateSale.php">历史销售情况查询</a></li>
+                                <li><a href="city5.php">城市销售Top5</a></li>
                                 <li><a href="FiveSale.php" target="_blank">五年销售状况表</a></li>
                                 <li><a href="index2.php">返回主页</a></li>
+                                <li><a href="login.html">退出</a></li>
 							</ul>
 						</li>
 					</ul>
